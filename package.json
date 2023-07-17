@@ -4,7 +4,11 @@
   "description": "Red Social App with Node.js",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node src/example.ts"
+    "dev": "nodemon src/example.ts",
+		"lint:check": "eslint . --ext .ts",
+		"lint:fix": "npx eslint --fix .",
+		"prettier:check": "prettier --check src/**/*.{ts,json}",
+		"prettier:fix": "prettier --write src/**/*.{ts,json}"
   },
   "keywords": [],
   "author": "Miguel Chamorro",

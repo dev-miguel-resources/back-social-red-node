@@ -4,6 +4,5 @@ interface Person {
 	lastname: string;
 }
 
-const person: Person = { name: 'Facundo', lastname: 'Ramirez' };
+const person: Person = { name: 'Marcelo', lastname: 'Ramirez' };
 console.log(person);
-

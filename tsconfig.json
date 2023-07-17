@@ -23,7 +23,7 @@
 		],
 		"paths": {
 			"@configs/*": ["src/configs/*"]
-		}			                              /* Skip type checking all .d.ts files. */
+		}
   },
 	"include": [
 		"src/**/*.ts"
