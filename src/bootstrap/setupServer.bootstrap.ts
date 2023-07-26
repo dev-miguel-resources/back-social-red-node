@@ -10,6 +10,8 @@ import { logger } from '@configs/configLogs';
 
 const log: Logger = logger.createLogger('server');
 
+// SOLID Principle: Single Responsability
+// SOLID Principle: Open/Closed
 export class SocialServer {
 
 	private app: Application;
