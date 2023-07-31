@@ -22,7 +22,9 @@
 			{ "transform": "typescript-transform-paths", "afterDeclarations": true }
 		],
 		"paths": {
-			"@configs/*": ["src/configs/*"]
+			"@configs/*": ["src/configs/*"],
+			"@interfaces/*": ["src/interfaces/*"],
+			"@root/*": ["src/*"],
 		}
   },
 	"include": [
