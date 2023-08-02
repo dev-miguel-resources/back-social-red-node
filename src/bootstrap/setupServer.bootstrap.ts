@@ -37,6 +37,7 @@ export class SocialServer {
 	private securityMiddleware(app: Application): void {
 		// manejo de la seguridad del servidor con owasp
 		// pendiente de agregar otro middleware personalizado para renovar tiempos de vida del maxAge
+		// Design Pattern Synchronized Token: https://medium.com/@kaviru.mihisara/synchronizer-token-pattern-e6b23f53518e
 		app.use(
 			cookieSession({
 				name: 'session',
@@ -69,7 +70,7 @@ export class SocialServer {
 	}
 
 	private globalErrorHandler(app: Application): void {
-		// manejador global de errores de la app
+		// manejo de rutas no encontradas
 		app.all('*', (req: Request, res: Response) => {
 			res.status(HTTP_STATUS.NOT_FOUND).json({ message: `${req.originalUrl} not found` });
 		});
