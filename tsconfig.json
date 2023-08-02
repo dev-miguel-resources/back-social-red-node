@@ -24,6 +24,7 @@
 		"paths": {
 			"@configs/*": ["src/configs/*"],
 			"@interfaces/*": ["src/interfaces/*"],
+			"@helpers/*": ["src/shared/globals/helpers/*"],
 			"@root/*": ["src/*"],
 		}
   },
