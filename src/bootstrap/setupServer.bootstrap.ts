@@ -1,5 +1,6 @@
 import { Application, Request, Response, NextFunction, json, urlencoded } from 'express';
-// import http from 'http';
+import http from 'http';
+import { Server } from 'socket.io';
 import cors from 'cors';
 import helmet from 'helmet';
 import hpp from 'hpp';
@@ -13,6 +14,8 @@ import { logger } from '@configs/configLogs';
 import applicationRoutes from '@interfaces/http/routes';
 import { IErrorResponse } from '@helpers/errors/errorResponse.interface';
 import { CustomError } from '@helpers/errors/customError';
+import { createClient } from 'redis';
+import { createAdapter } from '@socket.io/redis-adapter';
 
 const log: Logger = logger.createLogger('server');
 
@@ -31,7 +34,7 @@ export class SocialServer {
 		this.standardMiddleware(this.app);
 		this.routesMiddleware(this.app);
 		this.globalErrorHandler(this.app);
-		//this.startServer(this.app);
+		this.startServer(this.app);
 	}
 
 	private securityMiddleware(app: Application): void {
@@ -85,21 +88,46 @@ export class SocialServer {
 		});
 	}
 
-	private async startServer(app: Application): Promise<void> {
-		// la especificación del incialización del server
-		//
-	}
-
-	private startHttpServer(): void {
+	private startHttpServer(httpServer: http.Server): void {
 		// config. de un servidor http
+		log.info(`Server has started with process ${process.pid}.`);
+		const PORT = Number(config.SERVER_PORT);
+		httpServer.listen(PORT, () => {
+			log.info(`Server running on port ${PORT}.`);
+		});
 	}
 
-	private async createSocketIO(): Promise<void> {
+	private async createSocketIO(httpServer: http.Server): Promise<Server> {
 		// creación de una instancia de servidor para conexiones en realtime
-		//
+		const io: Server = new Server(httpServer, {
+			cors: {
+				origin: config.CLIENT_URL,
+				methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+			}
+		});
+		// pub/sub mechanism
+		const pubClient = createClient({ url: config.REDIS_HOST });
+		const subClient = pubClient.duplicate();
+		await Promise.all([pubClient.connect(), subClient.connect()]);
+		io.adapter(createAdapter(pubClient, subClient));
+		return io;
 	}
 
-	private socketIOConnections(): void {
+	private socketIOConnections(io: Server): void {
 		// verificador de conexiones con el socket
+		log.info(io);
+		log.info('SocketIO Connections Ok.');
+	}
+
+	private async startServer(app: Application): Promise<void> {
+		// la especificación del servidor http con el servidor de sockets
+		try {
+			const httpServer: http.Server = new http.Server(app);
+			const socketIO: Server = await this.createSocketIO(httpServer);
+			this.startHttpServer(httpServer);
+			this.socketIOConnections(socketIO);
+		} catch (error) {
+			log.error(error);
+		}
 	}
 }
