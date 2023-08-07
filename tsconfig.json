@@ -25,6 +25,7 @@
 			"@bootstrap/*": ["src/bootstrap/*"],
 			"@configs/*": ["src/configs/*"],
 			"@interfaces/*": ["src/interfaces/*"],
+			"@services/*": ["src/shared/globals/services/*"],
 			"@helpers/*": ["src/shared/globals/helpers/*"],
 			"@root/*": ["src/*"],
 		}

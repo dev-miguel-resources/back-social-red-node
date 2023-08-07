@@ -4,7 +4,7 @@
   "description": "Red Social App with Node.js",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon -r tsconfig-paths/register src/app.ts",
+    "dev": "nodemon -r tsconfig-paths/register src/app.ts | ./node_modules/.bin/bunyan",
     "lint:check": "eslint . --ext .ts",
     "lint:fix": "npx eslint --fix .",
     "prettier:check": "prettier --check src/**/*.{ts,json}",

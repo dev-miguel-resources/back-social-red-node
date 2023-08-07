@@ -1,6 +1,10 @@
 import dotenv from 'dotenv';
+import { logger } from './configLogs';
+import Logger from 'bunyan';
 
 dotenv.config({});
+
+const log: Logger = logger.createLogger('logEnvs');
 
 class Config {
 	public DATABASE_URL: string | undefined;
@@ -45,7 +49,8 @@ class Config {
 		console.log(this);
 		for (const [key, value] of Object.entries(this)) {
 			if (value === undefined) {
-				throw new Error(`Configuration ${key} is undefined`);
+				//throw new Error(`Configuration ${key} is undefined`);
+				log.error(`Configuration ${key} is undefined`);
 			}
 		}
 	}
