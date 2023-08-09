@@ -1,6 +1,6 @@
 {
-  "compilerOptions": {
-    "module": "CommonJS",
+	"compilerOptions": {
+		"module": "CommonJS",
 		"target": "ES2015",
 		"lib": ["DOM", "ES2015"],
 		"esModuleInterop": true,
@@ -9,7 +9,7 @@
 		"noImplicitAny": true,
 		"sourceMap": true,
 		"experimentalDecorators": true,
-		"emitDecoratorMetadata":	true,
+		"emitDecoratorMetadata": true,
 		"baseUrl": "./",
 		"outDir": "./cache",
 		"strict": true,
@@ -27,14 +27,9 @@
 			"@interfaces/*": ["src/interfaces/*"],
 			"@services/*": ["src/shared/globals/services/*"],
 			"@helpers/*": ["src/shared/globals/helpers/*"],
-			"@root/*": ["src/*"],
+			"@root/*": ["src/*"]
 		}
-  },
-	"include": [
-		"src/**/*.ts"
-	],
-	"exclude": [
-		"node_modules"
-	]
+	},
+	"include": ["src/**/*.ts"],
+	"exclude": ["node_modules"]
 }
-
