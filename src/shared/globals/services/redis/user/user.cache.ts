@@ -84,12 +84,17 @@ export class UserCache extends BaseCache {
 			const response: IUserDocument = (await this.client.HGETALL(`users:${userId}`)) as unknown as IUserDocument;
 			response.createdAt = new Date(Generators.parseJson(`${response.createdAt}`));
 			response.postsCount = Generators.parseJson(`${response.postsCount}`);
-			// faltan aún por recuperar
+			response.blocked = Generators.parseJson(`${response.blocked}`);
+			response.blockedBy = Generators.parseJson(`${response.blockedBy}`);
+			response.notifications = Generators.parseJson(`${response.notifications}`);
+			response.social = Generators.parseJson(`${response.social}`);
+			response.followersCount = Generators.parseJson(`${response.followersCount}`);
+			response.followingCount = Generators.parseJson(`${response.followingCount}`);
 
 			return response;
 		} catch (error) {
 			log.error(error);
 			throw new ServerError('Server Redis error. Try Again.');
 		}
-	};
+	}
 }

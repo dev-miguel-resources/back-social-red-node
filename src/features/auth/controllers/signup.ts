@@ -5,6 +5,6 @@ export class SignUp {
 
 	@joiValidation(signupSchema)
 	public async create() {
-		// lógica de negocio -> abstracciones de clean code, redis, bdd, transformadores/dtos, colas -> etc...
+		// lógica de negocio -> abstracciones de clean code, redis (OK), bdd, transformadores/dtos, colas -> etc...
 	}
 }
