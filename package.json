@@ -15,6 +15,7 @@
   "author": "Miguel Chamorro",
   "license": "ISC",
   "dependencies": {
+		"@bull-board/express": "4.12.1",
 		"bull": "4.10.4",
     "bullmq": "3.13.4",
     "@socket.io/redis-adapter": "8.2.1",
