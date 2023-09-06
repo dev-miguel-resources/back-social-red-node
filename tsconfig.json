@@ -29,6 +29,7 @@
 			"@interfaces/*": ["src/interfaces/*"],
 			"@decorators/*": ["src/shared/globals/decorators/*"],
 			"@services/*": ["src/shared/globals/services/*"],
+			"@workers/*": ["src/shared/globals/workers/*"],
 			"@helpers/*": ["src/shared/globals/helpers/*"],
 			"@root/*": ["src/*"]
 		}
