@@ -2,5 +2,5 @@
 @urlPath = api/v1
 
 ###
-{{}}}
+POST {{baseUrl}}/{{urlPath}}/signup
 
