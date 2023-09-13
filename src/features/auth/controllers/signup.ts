@@ -29,5 +29,7 @@ export class SignUp extends SignUpUtility {
 			password: passwordHash,
 			avatarColor
 		});
+
+		const result = '';
 	}
 }
