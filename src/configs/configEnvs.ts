@@ -1,4 +1,5 @@
 import dotenv from 'dotenv';
+import cloudinary from 'cloudinary';
 import { logger } from './configLogs';
 import Logger from 'bunyan';
 
@@ -53,6 +54,14 @@ class Config {
 				log.error(`Configuration ${key} is undefined`);
 			}
 		}
+	}
+
+	public cloudinaryConfig(): void {
+		cloudinary.v2.config({
+			cloud_name: this.CLOUD_NAME,
+			api_key: this.CLOUD_API_KEY,
+			api_secret: this.CLOUD_API_SECRET
+		});
 	}
 }
 

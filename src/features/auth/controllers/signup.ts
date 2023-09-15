@@ -7,6 +7,13 @@ import { ObjectId } from 'mongodb';
 import { Generators } from '@helpers/generators/generators';
 import { IAuthDocument } from '@auth/interfaces/authDocument.interface';
 import { SignUpUtility } from './utilities/signup.utility';
+import { uploads } from '@helpers/cloudinary/cloudinaryUploads';
+import { UploadApiResponse } from 'cloudinary';
+import { IUserDocument } from '@user/interfaces/userDocument.interface';
+import { config } from '@configs/configEnvs';
+import { UserCache } from '@services/redis/user/user.cache';
+
+const userCache: UserCache = new UserCache();
 
 export class SignUp extends SignUpUtility {
 	@joiValidation(signupSchema)
@@ -30,6 +37,15 @@ export class SignUp extends SignUpUtility {
 			avatarColor
 		});
 
-		const result = '';
+		const result: UploadApiResponse = (await uploads(avatarImage, `${userObjectId}`)) as UploadApiResponse;
+		if (!result?.public_id) {
+			throw new BadRequestError('File upload: Error ocurred. Try again.');
+		}
+
+		// preparar los manejos a la bdd, cache, colas, etc...
+		// pendiente de explicar el prototype
+		const userDataForCache: IUserDocument = SignUp.prototype.userData(authData, userObjectId);
+		userDataForCache.profilePicture = `${config.CLOUD_DOMAIN}/${config.CLOUD_NAME}/image/upload/v${result.version}/${userObjectId}`;
+		await userCache.saveToUserCache(`${userObjectId}`, uId, userDataForCache);
 	}
 }
