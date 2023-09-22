@@ -1,5 +1,5 @@
 import express, { Router } from 'express';
-// import { SignUp } from '@auth/controllers/signup';
+import { SignUp } from '@auth/controllers/signup';
 
 class AuthRoutes {
 	private router: Router;
@@ -9,7 +9,7 @@ class AuthRoutes {
 	}
 
 	public routes(): Router {
-		this.router.post('/signup'); // design pattern: prototype
+		//this.router.post('/signup', SignUp.create()); // design pattern: bind prototype
 
 		return this.router;
 	}

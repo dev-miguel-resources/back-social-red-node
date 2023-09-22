@@ -3,4 +3,11 @@
 
 ###
 POST {{baseUrl}}/{{urlPath}}/signup
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{
+
+}
 

@@ -12,6 +12,10 @@ import { UploadApiResponse } from 'cloudinary';
 import { IUserDocument } from '@user/interfaces/userDocument.interface';
 import { config } from '@configs/configEnvs';
 import { UserCache } from '@services/redis/user/user.cache';
+import { omit } from 'lodash';
+import { authQueue } from '@services/queues/auth.queue';
+import { userQueue } from '@services/queues/user.queue';
+import HTTP_STATUS from 'http-status-codes';
 
 const userCache: UserCache = new UserCache();
 
@@ -42,10 +46,20 @@ export class SignUp extends SignUpUtility {
 			throw new BadRequestError('File upload: Error ocurred. Try again.');
 		}
 
-		// preparar los manejos a la bdd, cache, colas, etc...
 		// pendiente de explicar el prototype
 		const userDataForCache: IUserDocument = SignUp.prototype.userData(authData, userObjectId);
 		userDataForCache.profilePicture = `${config.CLOUD_DOMAIN}/${config.CLOUD_NAME}/image/upload/v${result.version}/${userObjectId}`;
 		await userCache.saveToUserCache(`${userObjectId}`, uId, userDataForCache);
+
+		authQueue.addAuthUserJob('addAuthUserToDB', { value: userDataForCache });
+		omit(userDataForCache, ['uId', 'username', 'email', 'avatarColor', 'password']);
+		userQueue.addUserJob('addUserToDB', { value: userDataForCache });
+
+		const userJwt: string = SignUp.prototype.signToken(authData, userObjectId);
+		req.session = { jwt: userJwt };
+
+		res
+			.status(HTTP_STATUS.CREATED)
+			.json({ message: 'User created succesfully', user: userDataForCache, token: userJwt });
 	}
 }

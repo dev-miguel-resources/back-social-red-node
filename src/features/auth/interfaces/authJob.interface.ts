@@ -1,7 +1,7 @@
 import { IAuthDocument } from './authDocument.interface';
+import { IUserDocument } from '@user/interfaces/userDocument.interface';
 
 export interface IAuthJob {
-	key?: string;
-	value?: string | IAuthDocument;
-	// puede que hayan definiciones pendientes
+	value?: string | IAuthDocument | IUserDocument;
+	// puede que hayan definiciones pendientes para más adelante
 }
