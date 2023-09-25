@@ -9,8 +9,7 @@ class AuthRoutes {
 	}
 
 	public routes(): Router {
-		//this.router.post('/signup', SignUp.create()); // design pattern: bind prototype
-
+		this.router.post('/signup', SignUp.prototype.create); // design pattern: bind prototype
 		return this.router;
 	}
 }

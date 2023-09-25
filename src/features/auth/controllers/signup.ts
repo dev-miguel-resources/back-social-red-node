@@ -46,7 +46,6 @@ export class SignUp extends SignUpUtility {
 			throw new BadRequestError('File upload: Error ocurred. Try again.');
 		}
 
-		// pendiente de explicar el prototype
 		const userDataForCache: IUserDocument = SignUp.prototype.userData(authData, userObjectId);
 		userDataForCache.profilePicture = `${config.CLOUD_DOMAIN}/${config.CLOUD_NAME}/image/upload/v${result.version}/${userObjectId}`;
 		await userCache.saveToUserCache(`${userObjectId}`, uId, userDataForCache);
