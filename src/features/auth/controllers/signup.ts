@@ -21,7 +21,7 @@ const userCache: UserCache = new UserCache();
 
 export class SignUp extends SignUpUtility {
 	@joiValidation(signupSchema)
-	public async create(req: Request, res: Response): Promise<void> {
+	public async register(req: Request, res: Response): Promise<void> {
 		const { username, email, password, avatarColor, avatarImage } = req.body;
 		const checkIfUserExist = await authService.getUserByUsernameOrEmail(username, email);
 		if (checkIfUserExist) {

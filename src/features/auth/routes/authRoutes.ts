@@ -1,5 +1,6 @@
 import express, { Router } from 'express';
 import { SignUp } from '@auth/controllers/signup';
+import { SignIn } from '@auth/controllers/signin';
 
 class AuthRoutes {
 	private router: Router;
@@ -9,7 +10,10 @@ class AuthRoutes {
 	}
 
 	public routes(): Router {
-		this.router.post('/signup', SignUp.prototype.create); // design pattern: bind prototype
+		// design pattern: bind prototype
+		this.router.post('/signup', SignUp.prototype.register);
+		this.router.post('/signin', SignIn.prototype.login);
+
 		return this.router;
 	}
 }
