@@ -8,7 +8,7 @@ import { joiValidation } from '@decorators/joi-validation.decorators';
 import { loginSchema } from '@auth/schemes/signin';
 import { authService } from '@services/db/auth.service';
 
-export class SignIn {
+export class SignInController {
 	@joiValidation(loginSchema)
 	public async login(req: Request, res: Response): Promise<void> {
 		const { username, password } = req.body;

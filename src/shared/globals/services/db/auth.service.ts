@@ -21,6 +21,13 @@ class AuthService {
 		}).exec()) as IAuthDocument;
 		return user;
 	}
+
+	public async getAuthUserByEmail(email: string): Promise<IAuthDocument> {
+		const user: IAuthDocument = (await AuthModel.findOne({
+			email: Generators.lowerCase(email)
+		}).exec()) as IAuthDocument;
+		return user;
+	}
 }
 
 export const authService: AuthService = new AuthService();

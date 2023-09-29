@@ -19,7 +19,7 @@ import HTTP_STATUS from 'http-status-codes';
 
 const userCache: UserCache = new UserCache();
 
-export class SignUp extends SignUpUtility {
+export class SignUpController extends SignUpUtility {
 	@joiValidation(signupSchema)
 	public async register(req: Request, res: Response): Promise<void> {
 		const { username, email, password, avatarColor, avatarImage } = req.body;
@@ -32,7 +32,7 @@ export class SignUp extends SignUpUtility {
 		const userObjectId: ObjectId = new ObjectId();
 		const uId = `${Generators.generateRandomIntegers(12)}`;
 		const passwordHash = await Generators.hash(password);
-		const authData: IAuthDocument = SignUp.prototype.signUpData({
+		const authData: IAuthDocument = SignUpController.prototype.signUpData({
 			_id: authObjectId,
 			uId: uId,
 			username,
@@ -46,7 +46,7 @@ export class SignUp extends SignUpUtility {
 			throw new BadRequestError('File upload: Error ocurred. Try again.');
 		}
 
-		const userDataForCache: IUserDocument = SignUp.prototype.userData(authData, userObjectId);
+		const userDataForCache: IUserDocument = SignUpController.prototype.userData(authData, userObjectId);
 		userDataForCache.profilePicture = `${config.CLOUD_DOMAIN}/${config.CLOUD_NAME}/image/upload/v${result.version}/${userObjectId}`;
 		await userCache.saveToUserCache(`${userObjectId}`, uId, userDataForCache);
 
@@ -54,7 +54,7 @@ export class SignUp extends SignUpUtility {
 		omit(userDataForCache, ['uId', 'username', 'email', 'avatarColor', 'password']);
 		userQueue.addUserJob('addUserToDB', { value: userDataForCache });
 
-		const userJwt: string = SignUp.prototype.signToken(authData, userObjectId);
+		const userJwt: string = SignUpController.prototype.signToken(authData, userObjectId);
 		req.session = { jwt: userJwt };
 
 		res
