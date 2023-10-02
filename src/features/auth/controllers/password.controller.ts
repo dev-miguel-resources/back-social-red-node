@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import CryptoJS from 'crypto-js';
+import crypto from 'crypto';
 import moment from 'moment';
 import HTTP_STATUS from 'http-status-codes';
 import { config } from '@configs/configEnvs';
@@ -18,5 +18,12 @@ export class PasswordController {
 		if (!existingUser) {
 			throw new BadRequestError('Invalid credentials');
 		}
+
+		const randomBytes: Buffer = await Promise.resolve(crypto.randomBytes(Number(config.RANDOM_BYTES)));
+		const randomCharacters: string = randomBytes.toString('hex'); // secuencia definida entre 0 a 9 y de la a la f
+
+		await authService.updatePasswordToken(`${existingUser._id}`, randomCharacters, Date.now() + 60 * 60 * 1000); // recomendación: 30min/1hr
+		const resetLink = `${config.CLIENT_URL}/reset-password?token=${randomCharacters}`;
+		//const template: string = '';
 	}
 }
