@@ -11,9 +11,12 @@ const log: Logger = logger.createLogger('mailOptions');
 // pendiente definición de llave
 
 class MailTransport {
-
 	public async sendEmail(receiverEmail: string, subject: string, body: string): Promise<void> {
-		// parametrizar
+		if (config.NODE_ENV === 'test' || config.NODE_ENV === 'development') {
+			this.developmentEmailSender(receiverEmail, subject, body);
+		} else {
+			this.productionEmailSender(receiverEmail, subject, body);
+		}
 	}
 
 	private async developmentEmailSender(receiverEmail: string, subject: string, body: string): Promise<void> {
@@ -24,7 +27,10 @@ class MailTransport {
 			auth: {
 				user: config.SENDER_EMAIL,
 				pass: config.SENDER_EMAIL_PASSWORD
-			} // pendiente una verificación de errores en el transporte del email
+			},
+			tls: {
+				rejectUnauthorized: false
+			}
 		});
 
 		const mailOptions: IMailOptions = {

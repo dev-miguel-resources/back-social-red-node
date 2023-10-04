@@ -1,6 +1,7 @@
 import express, { Router } from 'express';
 import { SignUpController } from '@auth/controllers/signup.controller';
 import { SignInController } from '@auth/controllers/signin.controller';
+import { PasswordController } from '@auth/controllers/password.controller';
 
 class AuthRoutes {
 	private router: Router;
@@ -13,7 +14,7 @@ class AuthRoutes {
 		// design pattern: bind prototype
 		this.router.post('/signup', SignUpController.prototype.register);
 		this.router.post('/signin', SignInController.prototype.login);
-		this.router.post('/forgot-password');
+		this.router.post('/forgot-password', PasswordController.prototype.requestReinstatement);
 
 		return this.router;
 	}

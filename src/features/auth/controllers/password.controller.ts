@@ -1,14 +1,16 @@
 import { Request, Response } from 'express';
 import crypto from 'crypto';
-import moment from 'moment';
+//import moment from 'moment';
 import HTTP_STATUS from 'http-status-codes';
 import { config } from '@configs/configEnvs';
 import { IAuthDocument } from '@auth/interfaces/authDocument.interface';
 import { joiValidation } from '@decorators/joi-validation.decorators';
-import { emailSchema, passwordSchema } from '@auth/schemes/emailAndPassword';
+import { emailSchema } from '@auth/schemes/emailAndPassword';
 import { BadRequestError } from '@helpers/errors/badRequestError';
-import { Generators } from '@helpers/generators/generators';
+// import { Generators } from '@helpers/generators/generators';
 import { authService } from '@services/db/auth.service';
+import { forgotPasswordTemplate } from '@services/emails/templates/forgot-password/forgot-password';
+import { emailQueue } from '@services/queues/email.queue';
 
 export class PasswordController {
 	@joiValidation(emailSchema)
@@ -24,6 +26,8 @@ export class PasswordController {
 
 		await authService.updatePasswordToken(`${existingUser._id}`, randomCharacters, Date.now() + 60 * 60 * 1000); // recomendación: 30min/1hr
 		const resetLink = `${config.CLIENT_URL}/reset-password?token=${randomCharacters}`;
-		//const template: string = '';
+		const template: string = forgotPasswordTemplate.passwordResetTemplate(existingUser.username, resetLink);
+		emailQueue.addEmailJob('forgotPasswordEmail', { template, receiverEmail: email, subject: 'Reset your password' });
+		res.status(HTTP_STATUS.OK).json({ message: 'Password reset email sent.' });
 	}
 }

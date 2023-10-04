@@ -5,8 +5,9 @@ import { config } from '@configs/configEnvs';
 import { logger } from '@configs/configLogs';
 import { IUserJob } from '@user/interfaces/userJob.interface';
 import { IAuthJob } from '@auth/interfaces/authJob.interface';
+import { IEmailJob } from '@user/interfaces/emailJob.interface';
 
-type IBaseJobData = IUserJob | IAuthJob;
+type IBaseJobData = IUserJob | IAuthJob | IEmailJob;
 
 let bullAdapters: BullAdapter[] = [];
 export let serverAdapter: ExpressAdapter;
