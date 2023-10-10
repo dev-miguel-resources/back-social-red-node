@@ -36,3 +36,14 @@ withCredentials: true
 	"email": "ingenieromiguelch@gmail.com"
 }
 
+###
+POST {{baseUrl}}/{{urlPath}}/reset-password/0526c3748cfea193b6c42f227ea744faa99a049
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{
+	"password": "chillan",
+	"confirmPassword": "chillan"
+}
+

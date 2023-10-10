@@ -15,6 +15,7 @@ class AuthRoutes {
 		this.router.post('/signup', SignUpController.prototype.register);
 		this.router.post('/signin', SignInController.prototype.login);
 		this.router.post('/forgot-password', PasswordController.prototype.requestReinstatement);
+		this.router.post('/reset-password/:token', PasswordController.prototype.updatePassword);
 
 		return this.router;
 	}
