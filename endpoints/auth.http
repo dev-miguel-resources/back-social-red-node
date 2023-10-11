@@ -37,7 +37,7 @@ withCredentials: true
 }
 
 ###
-POST {{baseUrl}}/{{urlPath}}/reset-password/0526c3748cfea193b6c42f227ea744faa99a049
+POST {{baseUrl}}/{{urlPath}}/reset-password/189ebba4520e7ce63d5f1faf240585582c66433e
 Content-Type: application/json
 Accept: application/json
 withCredentials: true
@@ -46,4 +46,10 @@ withCredentials: true
 	"password": "chillan",
 	"confirmPassword": "chillan"
 }
+
+###
+GET {{baseUrl}}/{{urlPath}}/signout
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
 

@@ -30,7 +30,8 @@ export class PasswordController {
 		await authService.updatePasswordToken(`${existingUser._id}`, randomCharacters, Date.now() + 60 * 60 * 1000); // recomendación: 30min/1hr
 		const resetLink = `${config.CLIENT_URL}/reset-password?token=${randomCharacters}`;
 		const template: string = forgotPasswordTemplate.passwordResetTemplate(existingUser.username, resetLink);
-		emailQueue.addEmailJob('forgotPasswordEmail', { template, receiverEmail: config.SENDER_EMAIL!, subject: 'Reset your password' });
+		//emailQueue.addEmailJob('forgotPasswordEmail', { template, receiverEmail: config.SENDER_EMAIL!, subject: 'Reset your password' });
+		emailQueue.addEmailJob('forgotPasswordEmail', { template, receiverEmail: existingUser.email, subject: 'Reset your password' });
 		res.status(HTTP_STATUS.OK).json({ message: 'Password reset email sent.' });
 	}
 
@@ -63,7 +64,8 @@ export class PasswordController {
 		const template: string = resetPasswordTemplate.passwordResetConfirmationTemplate(templateParams);
 		emailQueue.addEmailJob('forgotPasswordEmail', {
 			template,
-			receiverEmail: config.SENDER_EMAIL!,
+			//receiverEmail: config.SENDER_EMAIL!,
+			receiverEmail: existingUser.email,
 			subject: 'Password Reset Confirmation'
 		});
 		res.status(HTTP_STATUS.OK).json({ message: 'Password updated successfully.' });
