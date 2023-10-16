@@ -4,6 +4,7 @@ import { authRoutes } from '@auth/routes/authRoutes';
 import { config } from '@configs/configEnvs';
 import { serverAdapter } from '@services/queues/base.queue';
 import { currentUserRoutes } from '@auth/routes/currentRoutes';
+import { authMiddleware } from '@helpers/middlewares/auth-midleware';
 
 export default (app: Application) => {
 	const routes = () => {
@@ -14,7 +15,7 @@ export default (app: Application) => {
 		app.use(config.BASE_PATH!, authRoutes.routes());
 		app.use(config.BASE_PATH!, authRoutes.signoutRoute());
 
-		app.use(config.BASE_PATH!, currentUserRoutes.routes());
+		app.use(config.BASE_PATH!, authMiddleware.verifyUser, currentUserRoutes.routes());
 	};
 	routes();
 };
