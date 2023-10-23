@@ -8,8 +8,7 @@ import { SignUpController } from '../signup.controller';
 import { authService } from '@services/db/auth.service';
 import {  IJWT } from '@mocks/interfaces/jwt.interface';
 import { imageMock } from '@mocks/interfaces/imagePayload.interface';
-import { authMockResponse } from '@mocks/auth.mock';
-import { authMockRequest } from '@mocks/auth.mock';
+import { authMockRequest, authMockResponse } from '@mocks/auth.mock';
 import { Iimage } from '@helpers/cloudinary/imageResult.interface';
 import { CustomError } from '@helpers/errors/customError';
 
@@ -29,5 +28,30 @@ describe('SignUp Controller', () => {
 	afterEach(() => {
 		jest.clearAllMocks();
 		jest.clearAllTimers();
+	});
+
+	// UNITARY TEST
+	it('Should throw an error if username is not available', async () => {
+
+		// GIVEN
+		const req: Request = authMockRequest(
+		{},
+		{
+			username: '',
+			email: 'facu@gmail.com',
+			password: 'facdev',
+			avatarColor: 'red',
+			avatarImage: 'data:text/plain;base64,SVGsbG8sIFdvcmxkIQ=='
+		}
+		) as Request;
+		const res: Response = authMockResponse();
+
+		// WHEN
+		await SignUpController.prototype.register(req, res).catch((error: CustomError) => {
+
+		// THEN -> ASSERTION
+		expect(error.statusCode).toEqual(400);
+		expect(error.serializeErrors().message).toEqual('Username is a required field');
+		});
 	});
 });

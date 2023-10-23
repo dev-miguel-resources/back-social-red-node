@@ -32,6 +32,7 @@ const config: Config.InitialOptions = {
     '@services/(.*)': ['<rootDir>/src/shared/globals/services/$1'],
     '@socket/(.*)': ['<rootDir>/src/shared/globals/sockets/$1'],
     '@workers/(.*)': ['<rootDir>/src/shared/globals/workers/$1'],
+		'@mocks/(.*)': ['<rootDir>/src/shared/globals/mocks/$1'],
     '@root/(.*)': ['<rootDir>/src/$1']
 	}
 };
