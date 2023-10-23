@@ -1,0 +1,22 @@
+export const signUpMockData = {
+	_id: '605727cd646eb50e668a4e13',
+	uId: '92241616324557172',
+	username: 'Facu',
+	email: 'facu@gmail.com',
+	avatarColor: '#9c27b0',
+	password: 'facdev',
+	postCount: 0,
+	quote: '',
+	blocked: [],
+	blockedBy: [],
+	bgImageVersion: '',
+	bgImageId: '',
+	work: [],
+	school: [],
+	location: '',
+	createdAt: new Date(),
+	followersCoubt: 0,
+	followingCount: 0,
+	notifications: { messages: true, reaction: true, comments: true, follows: true },
+	profilePicture: 'https://res.cloudinary.com/escalab-academy/image/upload/v1682432288/6447e12032c72ead5abd2333.jpg'
+};

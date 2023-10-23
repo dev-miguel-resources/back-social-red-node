@@ -31,6 +31,7 @@
 			"@services/*": ["src/shared/globals/services/*"],
 			"@workers/*": ["src/shared/globals/workers/*"],
 			"@helpers/*": ["src/shared/globals/helpers/*"],
+			"@mocks/*": ["src/shared/globals/mocks/*"],
 			"@root/*": ["src/*"]
 		}
 	},
