@@ -26,7 +26,7 @@ export const authMockResponse = (): Response => {
 
 // SIMPLE MOCKS
 export const PASSWORD = 'facdev';
-export const USERNAME = 'facu';
+export const USERNAME = 'Facu';
 export const WRONG_USERNAME = 'fa';
 export const LONG_USERNAME = 'facudevelopermaximum';
 export const WRONG_PASSWORD = 'fac';
