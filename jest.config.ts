@@ -6,7 +6,8 @@ const config: Config.InitialOptions = {
 	verbose: true, // me entrega feedback de los resultados por la terminal
 	coverageDirectory: 'coverage', // directorio que aloja los reportes de los tests
 	collectCoverage: true, // recolector de informes para el directorio de cobertura
-	testPathIgnorePatterns: ['/node_modules/'], // ignorar el directorio de node_modules
+	testPathIgnorePatterns: ['/node_modules/'], // ignorar el directorio de node_modules,
+	cache: true, // memorizar las ejecuciones de los tests
 	transform: {
 		'^.+\\.ts?$': 'ts-jest' // ya le doy la función al ts-jest para que resuelva las extensiones de tests
 	},
