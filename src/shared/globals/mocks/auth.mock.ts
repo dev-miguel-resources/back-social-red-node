@@ -34,4 +34,4 @@ export const LONG_PASSWORD = 'facdevelopermax';
 export const JWT = '12djddj34';
 export const INVALID_EMAIL = 'facugmail.com';
 export const WRONG_EMAIL = 'test@gmail.com';
-export const CORRECT_EMAIL = 'facu@gmail.com';
+export const CORRECT_EMAIL = 'facdev@gmail.com';
