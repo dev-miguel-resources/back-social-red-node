@@ -12,7 +12,7 @@ import { SignInController } from '../signin.controller';
 import { CustomError } from '@helpers/errors/customError';
 import { authService } from '@services/db/auth.service';
 import { Generators } from '@helpers/generators/generators';
-import { authMock } from '@mocks/interfaces/authPayloadResolved';
+import { authMock } from '@mocks/authPayloadResolved.mock';
 import { IJWT } from '@mocks/interfaces/jwt.interface';
 
 jest.useFakeTimers();

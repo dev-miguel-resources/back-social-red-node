@@ -4,7 +4,7 @@ import { CORRECT_EMAIL, INVALID_EMAIL, PASSWORD, WRONG_EMAIL, authMockRequest, a
 import { CustomError } from '@helpers/errors/customError';
 import { emailQueue } from '@services/queues/email.queue';
 import { authService } from '@services/db/auth.service';
-import { authMock } from '@mocks/interfaces/authPayloadResolved';
+import { authMock } from '@mocks/authPayloadResolved.mock';
 //import { mailTransport } from '@services/emails/mail.transport';
 
 jest.mock('@services/db/auth.service');

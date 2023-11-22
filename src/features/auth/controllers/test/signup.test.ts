@@ -7,9 +7,9 @@ import { UserCache } from '@services/redis/user/user.cache';
 import { SignUpController } from '../signup.controller';
 import { authService } from '@services/db/auth.service';
 import { IJWT } from '@mocks/interfaces/jwt.interface';
-import { imageMock } from '@mocks/interfaces/imagePayload.interface';
+import { imageMock } from '@mocks/imagePayload.mock';
 import { authMockRequest, authMockResponse } from '@mocks/auth.mock';
-import { authMock } from '@mocks/interfaces/authPayloadResolved';
+import { authMock } from '@mocks/authPayloadResolved.mock';
 import { Iimage } from '@helpers/cloudinary/imageResult.interface';
 import { CustomError } from '@helpers/errors/customError';
 
