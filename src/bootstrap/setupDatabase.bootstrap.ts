@@ -24,3 +24,5 @@ export default () => {
 
 	mongoose.connection.on('disconnected', connect);
 };
+
+// pending trick exclude
